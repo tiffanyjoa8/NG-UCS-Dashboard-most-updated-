@@ -1,0 +1,114 @@
+<!-- //USE THIS TO BUILD FINAL(??) PRODUCT!!! -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- tab label -->
+    <title>UCS Dashboard</title>
+
+	<!-- Title of Webpage -->
+	<center><h1>NG MBSE WSAM UCS</h1></center>
+
+<!-- Style for the nodes (circles), text, and link -->
+    <style>
+/* 	
+	STYLE ELEMENT THAT ALLOWS FOR CLICK */
+	.node {
+		cursor: pointer;
+	}
+
+    /* style for circle */
+	.node circle {
+	  /* fill: #fff; */
+	  /* stroke: steelblue; */
+	  stroke-width: 2px;
+	}
+
+        /* style for text next to the circle */
+	.node text {
+	  font: 13px sans-serif;
+	}
+
+    /* connections between the circle nodes */
+	.link {
+	  fill: none;
+	  stroke: rgb(199, 199, 199);
+	  stroke-width: 2px;
+	}    
+    
+	</style>
+	
+<!-- FROM CHAT BASICUCSDASHBOARD.HTML !!!-->
+	<style>
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		body { font: 13px Helvetica, Arial; }
+		form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+		form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+		form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+		#messages { list-style-type: none; margin: 0; padding: 0; }
+		#messages li { padding: 5px 10px; }
+		#messages li:nth-child(odd) { background: #eee; }
+	  </style>
+
+  </head>
+
+  <body>
+
+<!-- load the d3.js library -->	
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<!-- ALL OF THE CODE FOR THE TREE IS HERE -->
+<script src = "ucstreecode.js" type = "module"></script>
+
+<!-- THE HARDCODED JSON IS REFERRED TO IN UCSTREECODE.JS -->
+
+<!-- the streamdeck basic code
+<script src = "stmdck.js"></script> -->
+
+<!-- INPUT ID OF MESSAGE IS CALLED M -->
+<ul id="messages"></ul>
+<form action="">
+  <input id="m" autocomplete="off" /><button>Send</button>
+</form>
+
+<!-- //sets up the socket.io-client (expose io global) and connects -->
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<!-- in following script, when user types in a message, the server receives it as a chat message event -->
+<script>
+	$(function () {
+	  var socket = io();
+	  $('form').submit(function(e){
+		e.preventDefault(); // prevents page reloading
+
+		//take what the user inputted (has input id called m that was assigned to value) and assign it to chat message(??) and emit the chat message vars
+		socket.emit('chat message', $('#m').val());
+
+		$('#m').val(' ');
+		return false;
+	  });
+// (end) server receives chat message event
+
+
+//capture the chat message event emitted and include it on the page (with the other messages already displayed)
+	  socket.on('chat message', function(msg){
+	$('#messages').append($('<li>').text(msg));
+	});
+
+	});
+  </script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
