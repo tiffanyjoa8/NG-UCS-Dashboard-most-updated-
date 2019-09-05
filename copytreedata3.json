@@ -1,0 +1,453 @@
+
+{"name" : "Northrop Grumman",
+    "parent" : "Southern California",
+    "progress": 71,
+    "children": 
+    [
+        {
+            "name" : "El Segundo",
+            "parent": "Top Level",    
+            "progress": 70,
+            "children":
+            [
+                {
+                    "name": "Airplane1",
+                    "parent": "El Segundo",
+                    "start year" : 2017,
+                    "end year" : 2021,
+                    "progress": 93,
+                    "children":
+                    [
+                        {
+                            "name": "wheels",
+                            "parent": "Airplane1",
+                            "progress": 100,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "wheels",
+                                "progress": 100
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "wheels",
+                                    "progress": 100
+                                },
+                                {
+                                    "name": "part3",
+                                    "parent": "wheels",
+                                    "progress": 100
+                                }
+                            ]
+                        },
+
+                        {   "name": "windows",
+                            "parent": "Airplane1",
+                            "progress": 80
+                        },
+                        {    "name":"oxygen masks",
+                            "parent": "Airplane1",
+                            "progress": 100
+                        }
+                    ]
+                },
+
+                {
+                    "name": "Car1",
+                    "parent": "El Segundo",
+                    "start year" : 20165,
+                    "end year" : 2022,
+                    "progress": 77,
+                    "children":
+                    [
+                        {
+                            "name":"wheels",
+                            "parent": "Car1",
+                            "progress": 90
+                        },
+
+                        {   "name": "windows",
+                            "parent": "Car1",
+                            "progress": 40,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "windows",
+                                "progress": 40
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "windows",
+                                    "progress": 40
+                                },
+                                {
+                                    "name": "part3",
+                                    "parent": "windows",
+                                    "progress": 40
+                                }
+                            ]
+                        },
+                        {    "name":"airbag",
+                            "parent": "Car1",
+                            "progress": 100
+                        }
+                    ]
+                },
+                {
+                    "name": "Top Secret1",
+                    "parent": "El Segundo",
+                    "start year" : 2019,
+                    "end year" : 2023,
+                    "progress": 40,
+                    "children":
+                    [
+                        {
+                            "name":"item1",
+                            "parent": "Top Secret1",
+                            "progress": 40,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "item1",
+                                "progress": 40
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "item1",
+                                    "progress": 40
+                                }
+                            ]
+                        },
+
+                        {   "name": "item2",
+                            "parent": "Top Secret1",
+                            "progress": 40
+                        },
+                        {    "name":"item3",
+                            "parent": "Top Secret1",
+                            "progress": 40,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "item3",
+                                "progress": 40
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "item3",
+                                    "progress": 40
+                                }
+                            ]
+
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name" : "Space Park",
+            "parent": "Top Level",
+            "progress": 74,
+            "children":
+            [
+                {
+                    "name": "Airplane2",
+                    "parent": "El Segundo",
+                    "start year" : 2017,
+                    "end year" : 2021,
+                    "progress": 100,
+                    "children":
+                    [
+                        {
+                            "name":"wheels",
+                            "parent": "Airplane2",
+                            "progress": 100
+                        },
+
+                        {   "name": "windows",
+                            "parent": "Airplane2",
+                            "progress": 100
+                        },
+                        {    "name":"oxygen masks",
+                            "parent": "Airplane2",
+                            "progress": 100,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "oxygen masks",
+                                "progress": 100
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "oxygen masks",
+                                    "progress": 100
+                                },
+                                {
+                                    "name": "part3",
+                                    "parent": "oxygen masks",
+                                    "progress": 100
+                                },
+                                {
+                                    "name": "part4",
+                                    "parent": "oxygen masks",
+                                    "progress": 100
+                                },
+                                {
+                                    "name": "part5",
+                                    "parent": "oxygen masks",
+                                    "progress": 100
+                                }
+                            ]
+                        }
+                    ]
+                },
+
+                {
+                    "name": "Car2",
+                    "parent": "El Segundo",
+                    "start year" : 20165,
+                    "end year" : 2022,
+                    "progress":74,
+                    "children":
+                    [
+                        {
+                            "name":"wheels",
+                            "parent": "Car2",
+                            "progress": 100
+                        },
+
+                        {   "name": "windows",
+                            "parent": "Car2",
+                            "progress": 40
+                        },
+                        {    "name":"airbag",
+                            "parent": "Car2",
+                            "progress": 83,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "airbag",
+                                "progress": 40
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "airbag",
+                                    "progress": 100
+                                }
+                            ]
+
+                        }
+                    ]
+                },
+                {
+                    "name": "Top Secret2",
+                    "parent": "El Segundo",
+                    "start year" : 2019,
+                    "end year" : 2023,
+                    "progress": 77,
+                    "children":
+                    [
+                        {
+                            "name":"item1",
+                            "parent": "Top Secret2",
+                            "progress": 40
+                        },
+
+                        {   "name":"item2",
+                            "parent": "Top Secret2",
+                            "progress": 100,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "item2",
+                                "progress": 100
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "item2",
+                                    "progress": 100
+                                },
+                                {
+                                    "name": "part3",
+                                    "parent": "item2",
+                                    "progress": 100
+                                },
+                                {
+                                    "name": "part4",
+                                    "parent": "item2",
+                                    "progress": 100
+                                }
+                            ]
+                        },
+                        {    "name":"item3",
+                            "parent": "Top Secret2",
+                            "progress": 90,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "item2",
+                                "progress": 100
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "item2",
+                                    "progress": 40
+                                },
+                                {
+                                    "name": "part3",
+                                    "parent": "item2",
+                                    "progress": 88
+                                }
+                            ]
+                            
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name" : "Manhattan Beach",
+            "parent": "Top Level",
+            "progress": 70,
+            "children":
+            [
+                {
+                    "name": "Airplane3",
+                    "parent": "El Segundo",
+                    "start year" : 2017,
+                    "end year" : 2021,
+                    "progress": 68,
+                    "children":
+                    [
+                        {
+                            "name":"wheels",
+                            "parent": "Airplane3",
+                            "progress": 83,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "wheels",
+                                "progress": 100
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "wheels",
+                                    "progress": 60
+                                }
+                            ]
+                        },
+
+                        {   "name": "windows",
+                            "parent": "Airplane3",
+                            "progress": 20
+                        },
+                        {    "name":"oxygen masks",
+                            "parent": "Airplane3",
+                            "progress": 100
+                        }
+                    ]
+                },
+
+                {
+                    "name": "Car3",
+                    "parent": "El Segundo",
+                    "start year" : 20165,
+                    "end year" : 2022,
+                    "progress": 77,
+                    "children":
+                    [
+                        {
+                            "name":"wheels",
+                            "parent": "Car3",
+                            "progress": 100,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "wheels",
+                                "progress": 100
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "wheels",
+                                    "progress": 100
+                                }
+                            ]                          
+                        },
+
+                        {   "name": "windows",
+                            "parent": "Car3",
+                            "progress": 100
+                        },
+                        {    "name":"airbag",
+                            "parent": "Car3",
+                            "progress": 100
+                        }
+                    ]
+                },
+                {
+                    "name": "Top Secret3",
+                    "parent": "El Segundo",
+                    "start year" : 2019,
+                    "end year" : 2023,
+                    "progress": 67,
+                    "children":
+                    [
+                        {
+                            "name":"item1",
+                            "parent": "Top Secret3",
+                            "progress": 90,
+                            "children" :
+                            [
+                                {
+                                "name": "part1",
+                                "parent": "item1",
+                                "progress": 100
+                                },
+                                {
+                                    "name": "part2",
+                                    "parent": "item1",
+                                    "progress": 60
+                                },
+                                {
+                                    "name": "part3",
+                                    "parent": "item1",
+                                    "progress": 100
+                                },
+                                {
+                                    "name": "part4",
+                                    "parent": "item1",
+                                    "progress": 40
+                                },
+                                {
+                                    "name": "part5",
+                                    "parent": "item1",
+                                    "progress": 100
+                                }
+                            ]
+                        },
+
+                        {   "name":"item2",
+                            "parent": "Top Secret3",
+                            "progress": 70
+                        },
+                        {   "name":"item3",
+                            "parent": "Top Secret3",
+                            "progress": 40
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
