@@ -5,3 +5,5 @@ update this repo as I make changes to my code
 
 8/28/19: uploaded updated basicucs (add if statements w/ key index to emit diff chat mssge (node.id value) to front end), ucsdashboard.html (add bar to turn red if press key), ucstree.js (changed names of open close node function)
   NOTE: no changes made to json files
+
+9/17/19: uploaded final code as of sept 17 final intern demo :)
