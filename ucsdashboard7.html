@@ -1,0 +1,352 @@
+<!-- //USE THIS TO BUILD FINAL PRODUCT!!! -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- tab label -->
+    <title>UCS Dashboard</title>
+
+	<!-- Title of Webpage -->
+	<center><h1>NG MBSE UCS Dashboard</h1></center>
+
+<!-- Style for the nodes (circles), text, and link -->
+    <style>
+
+	/* STYLE ELEMENT THAT ALLOWS FOR CLICK */
+	.node {
+		cursor: pointer;
+	}
+
+    /* style for circle */
+	.node circle {
+	  /* fill: #fff; */
+	  /* stroke: steelblue; */
+	  stroke-width: 2px;
+	}
+
+	/* style for text next to the circle */
+	.node text {
+	  font: 13px sans-serif;
+	}
+
+    /* connections between the circle nodes */
+	.link {
+	  fill: none;
+	  stroke: rgb(199, 199, 199);
+	  stroke-width: 2px;
+	}    
+    
+	</style>
+	
+<!-- FROM CHAT BASICUCSDASHBOARD.HTML !!!-->
+	<style>
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		body { font: 13px Helvetica, Arial; }
+		form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+		form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+		form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+		#messages { list-style-type: none; margin: 0; padding: 0; }
+		#messages li { padding: 5px 10px; }
+		#messages li:nth-child(odd) { background: #eee; }
+	  </style>
+
+<!-- FOR THE MOUSEOVER HOVER ABILITY -->
+<style>
+div.tooltip {
+    position: absolute;
+    text-align: left;
+    width: 180px;
+    height: 80px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+  }
+</style>
+
+  </head>
+
+  <body>
+
+	<!-- on keypress, change text input box to red -->
+		<!-- <p>This example demonstrates how to assign an "onkeypress" event to an input element.</p>
+
+		<p>Press a key inside the text field to set a red background color.</p>
+		
+		<input type="text" id="demo" onkeypress="myFunction()">
+		
+		<script>
+		function myFunction() {
+		  document.getElementById("demo").style.backgroundColor = "red";
+		}
+		</script> -->
+
+<!-- load the d3.js library -->	
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<!-- INPUT ID OF MESSAGE IS CALLED M -->
+<ul id="messages"></ul>
+<form action="">
+  <input id="m" autocomplete="off" /><button>Send</button>
+</form>
+
+<!-- //sets up the socket.io-client (expose io global) and connects -->
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script>
+	document.addEventListener('click', this.openclosenode)
+
+	document.addEventListener('keyup', this.openclosenode)
+		//control size+shape of the svg (scalable vector graphics)
+		// ************** Generate the tree diagram	 *****************
+		var margin = {top: 50, right: 120, bottom: 50, left: 120},
+			width = 2900 - margin.right - margin.left, //north south 
+			height = 2800 - margin.top - margin.bottom; //east west
+			
+		var i = 0,
+			duration = 750,
+			root;
+		
+		var tree = d3.layout.tree()
+			.size([height, width]);
+		
+			// declares vars for the links  
+		var diagonal = d3.svg.diagonal()
+			.projection(function(d) { return [d.x, d.y]; });
+		
+		var svg = d3.select("body").append("svg")
+			.attr("width", width + margin.right + margin.left)
+			.attr("height", height + margin.top + margin.bottom)
+		  .append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+			//read in data from json file
+			//root is first element in the treeData array (json)
+		d3.json("treedata.json", function(error, treedata)
+		{
+			root = treedata[0];
+		
+			root.x0 = height / 2;
+			root.y0 = 0;
+			
+			// draws the tree diagram
+			update(root);
+		});
+		
+		d3.select(self.frameElement).style("height", "500px");
+		
+		function update(source) {
+		  // Compute the new tree layout.
+		  var nodes = tree.nodes(root).reverse(),
+			  links = tree.links(nodes);
+		
+		  // Normalize for fixed-depth. // determines horizontal spacing
+		  nodes.forEach(function(d) { d.y = d.depth * 150; });
+		
+		//declare variable/function node so that when call node later, it will select the appropriate nodes with the right .ids
+		  // Update the nodes…
+		  var node = svg.selectAll("g.node")
+			  .data(nodes, function(d) { return d.id || (d.id = ++i); })
+			//   .attr("id", function(d) { return d.data.uniqueID; });
+
+			//   d3.selectAll("g")
+			//   .filter(function(d){return d.data.uniqueID === myDatum.data.uniqueID; });
+
+			//   d3.select ("#" + myDatum.data.uniqueID);
+
+		
+		  // Enter any new nodes at the parent's previous position.
+		  var nodeEnter = node.enter().append("g")
+			  .attr("class", "node")
+			  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+			  .on("click", openclosenode)
+			//   .on("mouseover", click) EXPERIMENTING WITH .ON FUNCTIONS
+		
+			  //NEW STUFF (FOR MOUSEOVER)
+			  .on("mouseover", function seeinfo(d) {
+				div.transition()
+				  .duration(200)
+				  .style("opacity", .9);
+				div .html(
+					"Name: " + d.name + "<br/>" + 
+					// "Parent: " + d.parent + "<br/>" +
+					"ID: " + d.id + "<br/>"+
+					"Progress: " + d.progress + "%" + "<br/>"
+					)
+				  .style("left", (d3.event.pageX) + "px")
+				  .style("top", (d3.event.pageY - 28) + "px");
+				})
+			  .on("mouseout", function hideinfo(d) {
+				div.transition()
+				  .duration(500)
+				  .style("opacity", 0);
+				});
+		
+			  //NEW STUFF (FOR MOUSEOVER)
+		  var div = d3.select("body").append("div")
+			.attr("class", "tooltip")
+			.style("opacity", 0);
+		
+		
+		  nodeEnter.append("circle")
+			  .attr("r", function(d) {return d.progress/10+2;})
+			  .style("fill", function(d) { 
+				  //add if statements for "fill"/d.level and "stroke"/d.type
+					//not a lot of progress
+					if (d.progress <= 60)
+						d.level = "red";
+		
+					//decent amount of progress
+					else if (d.progress <= 99)
+						d.level = "yellow";
+		
+					//completed ucs
+					else
+						d.level = "green";
+					
+					return d.level;
+				})
+		
+			  .style("stroke", function(d) {
+					if (d.children) {
+					  d.type = "black"
+					} else {
+					  d.type = "white"
+					}
+				return d.type;}); //"black" or none
+			  
+		//for node labels consistently on one line
+		  nodeEnter.append("text")
+			  .attr("y", function(d) { return d.children || d._children ? -15 : 22; })
+			  .attr("dy", ".1em")
+			  .attr("text-anchor", "middle")
+			  .text(function(d) { return d.name; })
+			  .style("fill-opacity", 1);
+		
+		  // Transition nodes to their new position.
+		  var nodeUpdate = node.transition()
+			  .duration(duration)
+			  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+		
+		  nodeUpdate.select("circle")
+		
+		  nodeUpdate.select("text")
+			  .style("fill-opacity", 1);
+		
+		  // Transition exiting nodes to the parent's new position.
+		  var nodeExit = node.exit().transition()
+			  .duration(duration)
+			  .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+			  .remove();
+		
+		  nodeExit.select("circle")
+			  .attr("r", 1e-6);
+		
+		  nodeExit.select("text")
+			  .style("fill-opacity", 1e-6);
+		
+		  // Update the links
+		  var link = svg.selectAll("path.link")
+			  .data(links, function(d) { return d.target.id; });
+		
+		  // Enter any new links at the parent's previous position.
+		  link.enter().insert("path", "g")
+			  .attr("class", "link")
+			  .attr("d", function(d) {
+				var o = {x: source.x0, y: source.y0};
+				return diagonal({source: o, target: o});
+			  });
+		
+		  // Transition links to their new position.
+		  link.transition()
+			  .duration(duration)
+			  .attr("d", diagonal);
+		
+		  // Transition exiting nodes to the parent's new position.
+		  link.exit().transition()
+			  .duration(duration)
+			  .attr("d", function(d) {
+				var o = {x: source.x, y: source.y};
+				return diagonal({source: o, target: o});
+			  })
+			  .remove();
+		
+		  // Stash the old positions for transition.
+		  nodes.forEach(function(d) {
+			d.x0 = d.x;
+			d.y0 = d.y;
+		  });
+		}
+		
+		//OG CLICK FUNCTION WITH MOUSE CLICK
+		function openclosenode(d) {
+			//added consolelogs in the html page for mouseclicks and keyboard presses
+			console.log(d)
+			console.log(d.target)
+
+
+			// if (d.id == 66)
+			// {
+				if (d.children) {
+				d._children = d.children;
+				d.children = null;
+			  } 
+			  else {
+				d.children = d._children;
+				d._children = null;
+			  }
+			  update(d);
+			}
+
+			// }
+
+	//sets up the socket.io-client (expose io global) and connects(?)
+	$(function () {
+	  var socket = io();
+	  $('form').submit(function(e){
+		e.preventDefault(); // prevents page reloading
+
+		//take what the user inputted (has input id called m that was assigned to value) and assign it to chat message(??) and emit the chat message vars
+		socket.emit('chat message', $('#m').val());
+
+		$('#m').val(' ');
+		return false;
+	  });
+// (end) server receives chat message event
+
+//capture the chat message event emitted and include it on the page (with the other messages already displayed)
+	  socket.on('chat message', function(msg){
+	$('#messages').append($('<li>').text(msg));	
+	//   });
+
+//FOLLOWING DOES NOT WORK // WORK ON THIS AFTER GET THE STREAMDECK TO NAVIGATE THE DENDROGRAM
+// if (msg == 73)
+// {
+// 	openclosenode(msg);
+// }
+// else if (msg == 72)
+// {
+// 	openclosenode(msg);
+// }
+// else if (msg == 49)
+// {
+// 	openclosenode(msg);
+// }
+// else if (msg == 22)
+// {
+// 	openclosenode(msg);
+// }
+	});
+});
+
+	</script>		
+
+</body>
+
+</html>
+
